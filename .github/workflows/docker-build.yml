@@ -2,13 +2,17 @@
 # This file is licensed under the karakuri_agent Personal Use & No Warranty License.
 # Please see the LICENSE file in the project root.
 
-name: build
+name: docker-build
 
 on:
   workflow_dispatch:
 
 permissions:
   contents: read
+  packages: write
+  attestations: write
+  id-token: write
+
 
 jobs:
   build-docker:
@@ -18,13 +22,14 @@ jobs:
       - uses: actions/checkout@v3
       - name: release-docker
         run: |
-          docker build --tag ghcr.io/karkuri-agent/karkuri-agent-flutter-client-dev:latest \
+          docker build --tag ghcr.io/karakuriagent/karkuri-agent-flutter-client-dev:latest \
             --no-cache \
             --file Dockerfile-dev .
-      - name: Login to Registries
-        env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "${GITHUB_TOKEN}" | docker login ghcr.io -u KarakuriAgent --password-stdin
+      - name: Log in to the Container registry
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Push to GitHub Packages
-        run: docker push ghcr.io/karkuri-agent/karkuri-agent-flutter-client-dev:latest
+        run: docker push ghcr.io/karakuriagent/karkuri-agent-flutter-client-dev:latest
