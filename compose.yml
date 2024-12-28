@@ -1,0 +1,17 @@
+# Copyright (c) 0235 Inc.
+# This file is licensed under the karakuri_agent Personal Use & No Warranty License.
+# Please see the LICENSE file in the project root.
+
+services:
+  karakuri-agent-app:
+    build:
+      context: .
+      dockerfile: .
+    container_name: "karakuri-agent-app"
+    tty: true
+    command: >
+      /bin/sh -c "cd ~/workspace/karakuri_agent && flutter pub get &&  dart run rps run-release web"
+    ports:
+      - 50505:50505
+    volumes:
+      - ./app:/home/ubuntu/workspace/karakuri_agent
