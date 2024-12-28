@@ -26,7 +26,7 @@ jobs:
         run: echo "/home/ubuntu/flutter/bin" >> $GITHUB_PATH
       - run: git config --global --add safe.directory /home/ubuntu/flutter
       - run: dart run rps clean-gen
-      - run: flutter build web --base-href "/karakuri_agent/"
+      - run: flutter build web --base-href "/karakuri_agent_flutter/"
       - uses: actions/upload-pages-artifact@v1
         with:
           path: build/web
