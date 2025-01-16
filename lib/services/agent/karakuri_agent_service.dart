@@ -51,7 +51,7 @@ class KarakuriAgentService extends AgentService {
       final request = http.MultipartRequest('POST', uri)
         ..fields['agent_id'] = _agentConfig.agentId
         ..fields['message'] = message
-        ..headers['X-API-Key'] = _agentConfig.apiKey
+        ..headers['Authorization'] = 'Bearer ${_agentConfig.apiKey}'
         ..headers['accept'] = 'application/json';
 
       final streamedResponse = await request.send();

@@ -6,7 +6,7 @@ services:
   karakuri-agent-app:
     build:
       context: .
-      dockerfile: .
+      dockerfile: Dockerfile
     container_name: "karakuri-agent-app"
     tty: true
     command: >
@@ -14,4 +14,4 @@ services:
     ports:
       - 50505:50505
     volumes:
-      - ./app:/home/ubuntu/workspace/karakuri_agent
+      - ./:/home/ubuntu/workspace/karakuri_agent
